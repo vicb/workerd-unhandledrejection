@@ -1,0 +1,4 @@
+node_modules/
+
+# A local checkout of cloudflare/workerd, used to build `main`.
+workerd/

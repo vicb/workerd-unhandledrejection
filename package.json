@@ -1,0 +1,12 @@
+{
+  "name": "workerd-unhandledrejection",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "repro": "workerd test config.capnp",
+    "repro:node": "node run-node.mjs"
+  },
+  "devDependencies": {
+    "workerd": "1.20261118.1"
+  }
+}

@@ -1,0 +1,56 @@
+workerd 2026-11-18
+workerd/server/server/run.rs:653: debug: [ TEST ] listener-rejects-synchronously
+after reject("a"), the listener saw: ["a"]
+after reject("trigger"), the listener saw: ["a","trigger","rejected by the listener"]
+after reject("b"), the listener saw: ["a","trigger","rejected by the listener"]
+after reject("c"), the listener saw: ["a","trigger","rejected by the listener"]
+workerd/io/worker.c++:3043: info: uncaught exception; source = Uncaught (in promise); stack = Error: expected ["a","trigger","rejected by the listener","b","c"], got ["a","trigger","rejected by the listener"]
+    at Object.test (worker:32:13)
+workerd/io/io-context.c++:656: info: uncaught exception; exception = workerd/jsg/_virtual_includes/iterator/workerd/jsg/value.h:1456: failed: jsg.Error: expected ["a","trigger","rejected by the listener","b","c"], got ["a","trigger","rejected by the listener"]
+workerd/server/server/run.rs:660: debug: [ FAIL ] listener-rejects-synchronously (51.450208ms)
+workerd/server/server/run.rs:653: debug: [ TEST ] async-listener-throws
+workerd/io/worker.c++:1255: info: console warning; message = An event handler returned a promise that will be ignored. Event handlers should not have a return value and should not be async functions.
+after reject("a"), the listener saw: ["a"]
+after reject("trigger"), the listener saw: ["a","trigger","Error: thrown by the async listener"]
+after reject("b"), the listener saw: ["a","trigger","Error: thrown by the async listener"]
+after reject("c"), the listener saw: ["a","trigger","Error: thrown by the async listener"]
+workerd/io/worker.c++:3043: info: uncaught exception; source = Uncaught (in promise); stack = Error: expected ["a","trigger","Error: thrown by the async listener","b","c"], got ["a","trigger","Error: thrown by the async listener"]
+    at Object.test (worker:24:13)
+workerd/io/io-context.c++:656: info: uncaught exception; exception = workerd/jsg/_virtual_includes/iterator/workerd/jsg/value.h:1456: failed: jsg.Error: expected ["a","trigger","Error: thrown by the async listener","b","c"], got ["a","trigger","Error: thrown by the async listener"]
+workerd/server/server/run.rs:660: debug: [ FAIL ] async-listener-throws (49.870708ms)
+workerd/server/server/run.rs:653: debug: [ TEST ] listener-handles-the-promise
+after reject("a"), the listener saw: ["a"]
+after reject("trigger"), the listener saw: ["a","trigger"]
+after reject("b"), the listener saw: ["a","trigger"]
+after reject("c"), the listener saw: ["a","trigger"]
+workerd/io/worker.c++:3043: info: uncaught exception; source = Uncaught (in promise); stack = Error: expected ["a","trigger","b","c"], got ["a","trigger"]
+    at Object.test (worker:24:13)
+workerd/io/io-context.c++:656: info: uncaught exception; exception = workerd/jsg/_virtual_includes/iterator/workerd/jsg/value.h:1456: failed: jsg.Error: expected ["a","trigger","b","c"], got ["a","trigger"]
+workerd/server/server/run.rs:660: debug: [ FAIL ] listener-handles-the-promise (51.348375ms)
+workerd/server/server/run.rs:653: debug: [ TEST ] control-listener-rejects-in-a-microtask
+after reject("a"), the listener saw: ["a"]
+after reject("trigger"), the listener saw: ["a","trigger","rejected by the listener"]
+after reject("b"), the listener saw: ["a","trigger","rejected by the listener","b"]
+after reject("c"), the listener saw: ["a","trigger","rejected by the listener","b","c"]
+workerd/server/server/run.rs:660: debug: [ PASS ] control-listener-rejects-in-a-microtask (49.847125ms)
+workerd/server/server/run.rs:653: debug: [ TEST ] control-async-listener-flag-disabled
+workerd/io/worker.c++:1255: info: console warning; message = An event handler returned a promise that will be ignored. Event handlers should not have a return value and should not be async functions.
+after reject("a"), the listener saw: ["a"]
+after reject("trigger"), the listener saw: ["a","trigger","Error: thrown by the async listener"]
+after reject("b"), the listener saw: ["a","trigger","Error: thrown by the async listener","b"]
+after reject("c"), the listener saw: ["a","trigger","Error: thrown by the async listener","b","c"]
+workerd/server/server/run.rs:660: debug: [ PASS ] control-async-listener-flag-disabled (50.404833ms)
+workerd/server/server/run.rs:653: debug: [ TEST ] control-listener-handles-the-promise-flag-disabled
+after reject("a"), the listener saw: ["a"]
+after reject("trigger"), the listener saw: ["a","trigger"]
+after reject("b"), the listener saw: ["a","trigger","b"]
+after reject("c"), the listener saw: ["a","trigger","b","c"]
+workerd/server/server/run.rs:660: debug: [ PASS ] control-listener-handles-the-promise-flag-disabled (49.293625ms)
+workerd/server/server/run.rs:653: debug: [ TEST ] control-flag-disabled
+after reject("a"), the listener saw: ["a"]
+after reject("trigger"), the listener saw: ["a","trigger","rejected by the listener"]
+after reject("b"), the listener saw: ["a","trigger","rejected by the listener","b"]
+after reject("c"), the listener saw: ["a","trigger","rejected by the listener","b","c"]
+workerd/server/server/run.rs:660: debug: [ PASS ] control-flag-disabled (50.046959ms)
+Tests failed!
+exit=1
